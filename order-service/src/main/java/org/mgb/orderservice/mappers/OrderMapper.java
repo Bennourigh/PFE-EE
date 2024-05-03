@@ -3,6 +3,7 @@ package org.mgb.orderservice.mappers;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import org.mgb.orderservice.DTOs.CartItemDTO;
+import org.mgb.orderservice.DTOs.OrderCompleteDTO;
 import org.mgb.orderservice.DTOs.OrderDTO;
 import org.mgb.orderservice.entities.CartItem;
 import org.mgb.orderservice.entities.Order;

@@ -42,13 +42,13 @@ public class ProductReservedServiceImpl implements ProductReservedService {
     public void updateReserved(ProductReservedDTO requestDTO) {
         ProductReserved productReserved = productReservedRepository.findById(requestDTO.getId()).get();
         productReserved.setQuantity(productReserved.getQuantity()+ requestDTO.getQuantity());
-        productReservedRepository.save(productReserved);
+        productReservedRepository.saveAndFlush(productReserved);
     }
 
     @Override
     public void addReservedDTO(ProductReservedDTO productReservedDTO) {
         ProductReserved productReserved = productMapper.fromProductReservedDTO(productReservedDTO);
-        productReservedRepository.save(productReserved);
+        productReservedRepository.saveAndFlush(productReserved);
     }
 
     @Override

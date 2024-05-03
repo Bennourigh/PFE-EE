@@ -12,7 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 public class ProductReserved {
-    @Id@GeneratedValue(strategy = GenerationType.UUID)
+    @Id
     private UUID id;
     private String name;
     private double price;

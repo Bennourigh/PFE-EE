@@ -1,17 +1,14 @@
-package org.mgb.orderservice.DTOs;
+package org.mgb.inventoryservice.DTOs;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.mgb.orderservice.model.Product;
 
 import java.util.UUID;
 
 
 @Data @RequiredArgsConstructor
-public class CartItemDTO{
+public class UpdateProductReservedDTO {
     private UUID id;
-    private UUID productId;
-    private String name;
     private double price;
     private int quantity;
 

@@ -20,6 +20,5 @@ public class OrderDTO {
     private Date createdAt;
     private OrderStatus status;
     private double totalPrice;
-    private List<CartItem> OrderItems;
-
+    private ClientDTO client;
 }

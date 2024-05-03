@@ -18,16 +18,15 @@ import java.util.UUID;
 @RestController@Slf4j @CrossOrigin("*")@RequestMapping("/api")
 public class OrderRestController {
     private final OrderServiceImpl orderService;
-
     private final ClientServiceImpl clientService;
 
     public OrderRestController(OrderServiceImpl orderService, ClientServiceImpl clientService) {
         this.orderService = orderService;
-
         this.clientService = clientService;
     }
-    @GetMapping("/orders/{id}")
-    public OrderDTO getOrder(@PathVariable UUID id){
+    @GetMapping("/orders/orderComplete/{id}")
+    public OrderCompleteDTO getOrder(@PathVariable UUID id){
+
         return orderService.getOrderById(id);
     }
     @GetMapping("/orders")
@@ -35,26 +34,23 @@ public class OrderRestController {
         return orderService.getOrders();
     }
     @PostMapping("/orders")
-    public OrderDTO addOrder(OrderDTO orderDTO){
-        return orderService.addOrder(orderDTO);
+    public void addOrder(UUID clientId,OrderCompleteDTO orderDTO){
+        clientService.addOrder(clientId,orderDTO);
     }
     @DeleteMapping("/orders/{id}")
     public void deleteOrder(@PathVariable UUID id){
         orderService.deleteOrder(id);
     }
     @PutMapping("/orders/update")
-    public void updateOrderStatus(@RequestBody OrderDTO orderDTO){
-         orderService.updateOrder(orderDTO);
+    public void updateOrderStatus(@RequestBody UpdateOrderStatusDTO orderDTO){
+         orderService.updateStatus(orderDTO);
+         // must finnish my business with  my money when state changes
     }
     @DeleteMapping("/orderItems/{cartItemId}")
     public void deleteOrderItem(@PathVariable UUID cartItemId){
         orderService.deleteOrderItem(cartItemId);
     }
-    @PutMapping("/orders/items/update")
-    public ResponseEntity<Void> updateQuantity(@RequestBody CartItemDTO cartItemDTO ) {
-        orderService.updateOrderItem(cartItemDTO);
-        return ResponseEntity.ok().build();
-    }
+
     @GetMapping("/clients/{clientId}")
     public ClientDTO getClient(@PathVariable UUID clientId){
         return clientService.getClientById(clientId);
@@ -65,7 +61,6 @@ public class OrderRestController {
     }
     @GetMapping("/clients/order/{clientId}")
     public Set<OrderDTO> getOrdersOfClient(@PathVariable UUID clientId){
-
         return clientService.getAllOrdersClient(clientId);
     }
     @PutMapping("/clients/update")

@@ -23,6 +23,12 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "order_id")
     private UUID orderId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_id")
+    @ToString.Exclude
+// This is the join column for the Client
+    private Client client;
     @CreationTimestamp
     @Column(nullable = false)
     private Date createdAt;
@@ -31,6 +37,5 @@ public class Order {
     private OrderStatus status;
     @OneToMany( cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
-    private List<CartItem> OrderItems;
-
+    @Getter private List<CartItem> OrderItems;
 }

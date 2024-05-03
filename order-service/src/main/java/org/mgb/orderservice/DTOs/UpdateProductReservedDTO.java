@@ -3,10 +3,12 @@ package org.mgb.orderservice.DTOs;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
+import java.util.UUID;
+
 
 @Data @RequiredArgsConstructor
 public class UpdateProductReservedDTO {
-    private Long id;
+    private UUID id;
     private double price;
     private int quantity;
 

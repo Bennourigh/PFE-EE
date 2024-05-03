@@ -12,7 +12,8 @@ import java.util.*;
 @ToString
 @RequiredArgsConstructor
 @Entity
-
+@Builder
+@AllArgsConstructor
 public class Client {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "client_id")
@@ -20,6 +21,7 @@ public class Client {
 
     private String name;
     private String email;
-    @OneToMany(fetch = FetchType.LAZY , cascade = CascadeType.ALL , orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY , cascade = CascadeType.ALL , orphanRemoval = false)
+    @ToString.Exclude
     private Set<Order> orders;
 }

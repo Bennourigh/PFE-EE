@@ -1,6 +1,7 @@
 package org.mgb.orderservice.services;
 
 import org.mgb.orderservice.DTOs.ClientDTO;
+import org.mgb.orderservice.DTOs.OrderCompleteDTO;
 import org.mgb.orderservice.DTOs.OrderDTO;
 import org.mgb.orderservice.entities.Client;
 import org.mgb.orderservice.entities.Order;
@@ -9,10 +10,7 @@ import org.mgb.orderservice.mappers.OrderMapper;
 import org.mgb.orderservice.repository.ClientRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -22,15 +20,28 @@ public class ClientServiceImpl implements ClientService{
 
     public ClientServiceImpl(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
+
     }
     @Override
     public void createClient(ClientDTO clientDTO) {
         Client client= ClientMapper.INSTANCE.clientMapper(clientDTO);
-        clientRepository.save(client);
+        clientRepository.saveAndFlush(client);
+    }
+
+    @Override
+    public void addOrder(UUID clientId, OrderCompleteDTO orderDTO) {
+        Client client = clientRepository.findById(clientId).get();
+        //handel exception
+        Order order = ClientMapper.INSTANCE.clientMapper(orderDTO);
+        Set<Order> orders = clientRepository.findOrders(clientId);
+        orders.add(order);
+        clientRepository.saveAndFlush(client);
+
     }
     @Override
     public ClientDTO getClientById(UUID clientId) {
         Client client =clientRepository.findById(clientId).get();
+        //handel exception
         return ClientMapper.INSTANCE.clientMapper(client);
     }
 
@@ -48,7 +59,7 @@ public class ClientServiceImpl implements ClientService{
     @Override
     public void updateClient(ClientDTO clientDTO) {
         Client client= ClientMapper.INSTANCE.clientMapper(clientDTO);
-        clientRepository.save(client);
+        clientRepository.saveAndFlush(client);
     }
 
 

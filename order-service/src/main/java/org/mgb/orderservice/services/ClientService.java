@@ -1,6 +1,7 @@
 package org.mgb.orderservice.services;
 
 import org.mgb.orderservice.DTOs.ClientDTO;
+import org.mgb.orderservice.DTOs.OrderCompleteDTO;
 import org.mgb.orderservice.DTOs.OrderDTO;
 import org.mgb.orderservice.entities.Order;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,9 @@ import java.util.UUID;
 public interface ClientService {
     @Transactional
     void createClient(ClientDTO clientDTO);
+
+    void addOrder(UUID clientId, OrderCompleteDTO orderDTO);
+
     @Transactional
     ClientDTO getClientById(UUID id);
     @Transactional

@@ -36,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
         Product product = productMapper.fromProductDTO(productDTO);
 
         product.setId(UUID.randomUUID());
-        productRepository.save(product);
+        productRepository.saveAndFlush(product);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class ProductServiceImpl implements ProductService {
         Product product = productRepository.findById(productDTO.getId()).get();
         product.setName(productDTO.getName());
         product.setPrice(productDTO.getPrice());
-        productRepository.save(product);
+        productRepository.saveAndFlush(product);
     }
 
     @Override

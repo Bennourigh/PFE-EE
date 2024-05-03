@@ -13,4 +13,5 @@ import java.util.UUID;
 public interface ClientRepository extends JpaRepository<Client, UUID> {
     @Query("SELECT c.orders FROM Client c WHERE c.clientId = :clientId")
     Set<Order> findOrders(@Param("clientId") UUID clientId);
+
 }
